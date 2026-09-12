@@ -1,0 +1,22 @@
+{
+  "name": "x402-buyer-test",
+  "version": "1.0.0",
+  "description": "x402 buyer test client - Node.js TypeScript",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test:402": "tsx src/test-402.ts"
+  },
+  "dependencies": {
+    "@x402/fetch": "latest",
+    "@x402/core": "latest",
+    "@x402/evm": "latest",
+    "viem": "^2.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
