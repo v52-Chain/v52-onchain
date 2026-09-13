@@ -169,3 +169,14 @@ El cliente:
 
 5. **Soporte EVM en `OpenZeppelin/relayer-plugin-x402-facilitator`**:
    - El plugin oficial de OpenZeppelin actualmente en producción (`relayer-plugin-x402-facilitator` v0.5.0) anuncia redes EVM en `/supported`, pero internamente en `src/handler.ts` la lógica de `handleVerify` y `handleSettle` solo tiene implementado `case "stellar":`. Las solicitudes para redes EVM devuelven actualmente `{"invalidReason":"unsupported_network","isValid":false}` en el facilitador hasta que OpenZeppelin complete la integración de relayers EVM en el plugin.
+
+6. **⚠️ ACTUALIZACIÓN 2026-09-12 — Cambio de facilitador y formato de URL corregido**:
+   - Por la limitación del hallazgo #5 (el plugin OpenZeppelin no liquida EVM, solo Stellar), el facilitador en uso hoy detrás del túnel ngrok **ya no es** `relayer-plugin-x402-facilitator`. Se identifica a sí mismo como `x402-facilitator-local` y expone rutas **planas**: `/supported`, `/verify`, `/settle` directamente sobre el dominio, sin el prefijo `/api/v1/plugins/x402/call`.
+   - **El hallazgo #1 de esta lista quedó obsoleto para este facilitador.** Usar `FACILITATOR_URL=https://<dominio-ngrok>` (sin sufijo) — agregar `/api/v1/plugins/x402/call` produce `404` en todas las llamadas.
+   - Verificado end-to-end contra `v52-backend` (`/v1/agent/investigations/wallet-flow`) el 2026-09-12: ciclo completo `402 → firma EIP-712 → verify → settle → 200 OK`, con transacción real confirmada en Avalanche Fuji (`status: 0x1`, balance USDC descontado exactamente `1000` unidades atómicas). Ver `v52-backend/docs/X402_MCP_FRONTEND.md` §5.3 para el detalle completo, incluyendo el hash de transacción.
+   - Antes de asumir cualquiera de los dos formatos, verificar cuál está detrás del túnel activo:
+     ```bash
+     curl -s https://<dominio-ngrok>/supported                              # formato plano
+     curl -s https://<dominio-ngrok>/api/v1/plugins/x402/call/supported     # formato plugin OZ
+     ```
+     El que responda `200` con JSON (no `404`) indica el formato correcto para ese túnel.
