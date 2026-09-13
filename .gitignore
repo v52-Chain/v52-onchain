@@ -103,3 +103,23 @@ Thumbs.db
 *.sublime-project
 *.swp
 *.swo
+
+# ============================================================
+# Foundry / Solidity
+# ============================================================
+# Compiled artifacts and the solc cache — always reproducible from
+# contracts/ + foundry.toml via `forge build`.
+cache/
+out/
+foundry-pp/
+foundry.lock
+
+# Raw broadcast transcripts from `forge script --broadcast` (per-run,
+# per-chain-id JSON with full call traces). The curated, human-reviewed
+# summary for each network lives in deployments/*.json instead — that file
+# is tracked and is the source of truth cited from README.md.
+broadcast/
+
+# Gas snapshots and coverage output, if generated locally.
+.gas-snapshot
+lcov.info

@@ -1,0 +1,41 @@
+{
+  "network": "hsk-testnet",
+  "chain_id": 133,
+  "rpc_url": "https://testnet.hsk.xyz",
+  "explorer": "https://testnet-explorer.hsk.xyz",
+  "contracts": {
+    "V52EvidenceRegistry": {
+      "address": "0x3422820Ef9FBC8e0206E4CBcB6369dBd14BE18c4",
+      "deployer": "0x0f26475928053737C3CCb143Ef9B28F8eDab04C7",
+      "initial_issuer": "0x0f26475928053737C3CCb143Ef9B28F8eDab04C7",
+      "deploy_tx_hash": "0xe1fa572227cb85f0c944e7038cc66a684b7d21489fa1ff9532c770f2ea480782",
+      "deploy_block_number": 33035699,
+      "constructor_args": {
+        "initialIssuer": "0x0f26475928053737C3CCb143Ef9B28F8eDab04C7"
+      },
+      "compiler": {
+        "solc_version": "0.8.26",
+        "evm_version": "paris",
+        "optimizer": true,
+        "optimizer_runs": 200
+      },
+      "abi_path": "abi/V52EvidenceRegistry.json",
+      "source_path": "contracts/hsk/V52EvidenceRegistry.sol",
+      "verification_status": "NOT_VERIFIED",
+      "verification_note": "HSK testnet does not expose a confirmed Etherscan-compatible verification API at buildathon time. Bytecode/source match can be checked manually — see README.md 'Verificación de código'.",
+      "smoke_test": {
+        "description": "anchorCase() called once after deploy to prove end-to-end write/read on testnet.",
+        "tx_hash": "0xd97a0054d252bccbb17cbb4e4f0fc84cbd23eba4bbfc84fc9c40ccf03a8225fb",
+        "block_number": 33035723,
+        "manifest_root": "0x2407b6f2529df3afbb2ab609cb236ff00b8421c7a57f78128ee58ed6d54f5005",
+        "case_id": "case_smoke_test_deploy_verification"
+      }
+    }
+  },
+  "deployed_at": "2026-09-13T00:00:00Z",
+  "notes": [
+    "Testnet deployment for development/demo purposes. HSK Mainnet (chain_id 177) is the buildathon objective per PROYECTO-FINAL.md; testnet is used here as the contingency environment while mainnet funding/issuer wiring is confirmed.",
+    "Deployer key is the same wallet used for the x402 Avalanche Fuji buyer test (v52-onchain/x402-test/.env, BUYER_PRIVATE_KEY). It is funded on HSK testnet independently and is NOT the Avalanche facilitator/relayer wallet.",
+    "The deployer address is also the sole allow-listed issuer at deploy time. Add the Vector52 backend's relayer wallet as an additional issuer via setIssuer() before wiring POST /v1/cases/{case_id}/anchor to this deployment."
+  ]
+}
